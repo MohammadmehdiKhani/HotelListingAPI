@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoteListing API", "HoteListing API\HoteListing API.csproj", "{DFA1C6FE-8362-47D8-A6D7-DAF07D5EFB06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFA1C6FE-8362-47D8-A6D7-DAF07D5EFB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA1C6FE-8362-47D8-A6D7-DAF07D5EFB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA1C6FE-8362-47D8-A6D7-DAF07D5EFB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA1C6FE-8362-47D8-A6D7-DAF07D5EFB06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
