@@ -1,3 +1,4 @@
+using HoteListing_API.Configuration;
 using HoteListing_API.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -18,6 +19,7 @@ builder.Services.AddCors(options =>
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 var app = builder.Build();
 
