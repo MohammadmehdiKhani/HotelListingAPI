@@ -14,12 +14,12 @@ namespace HoteListing_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class countriesController : ControllerBase
+    public class CountriesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public countriesController(ApplicationDbContext context, IMapper mapper)
+        public CountriesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -53,15 +53,21 @@ namespace HoteListing_API.Controllers
         // PUT: api/countries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCountry(int id, Country country)
+        public async Task<IActionResult> PutCountry(int id, UpdateCountryDto updateCountryDto)
         {
-            if (id != country.Id)
+            if (id != updateCountryDto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(country).State = EntityState.Modified;
+            var country = await _context.Countries.FindAsync(id);
+            if (country == null)
+            {
+                return NotFound();
+            }
 
+            _mapper.Map(updateCountryDto, country);
+            
             try
             {
                 await _context.SaveChangesAsync();

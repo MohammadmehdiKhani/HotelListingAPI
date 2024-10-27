@@ -1,6 +1,6 @@
 ﻿namespace HoteListing_API.DTOs.Country;
 
-public class GetCountryDto : BaseCountryDto
+public class UpdateCountryDto : BaseCountryDto
 {
     public int Id { get; set; }
 }
