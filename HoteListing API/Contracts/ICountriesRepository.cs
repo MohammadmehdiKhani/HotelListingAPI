@@ -4,5 +4,5 @@ namespace HoteListing_API.Contracts;
 
 public interface ICountriesRepository : IGenericRepository<Country>
 {
-    Task<List<Country>> GetAsiaCountry();
+    Task<Country> GetDetails(int id);
 }
