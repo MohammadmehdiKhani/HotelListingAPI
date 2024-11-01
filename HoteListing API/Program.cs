@@ -1,6 +1,8 @@
 using HoteListing_API;
 using HoteListing_API.Configuration;
+using HoteListing_API.Contracts;
 using HoteListing_API.Models;
+using HoteListing_API.Repository;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -20,6 +22,8 @@ builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(MapperConfig));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 
 var app = builder.Build();
 

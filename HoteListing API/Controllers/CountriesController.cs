@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using HoteListing_API.Contracts;
 using HoteListing_API.DTOs.Country;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,13 @@ namespace HoteListing_API.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ICountriesRepository _repository;
 
-        public CountriesController(ApplicationDbContext context, IMapper mapper)
+        public CountriesController(ICountriesRepository repository, ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            _repository = repository;
         }
 
         // GET: api/countries
