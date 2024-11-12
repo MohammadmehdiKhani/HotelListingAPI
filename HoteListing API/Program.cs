@@ -3,6 +3,7 @@ using HoteListing_API.Configuration;
 using HoteListing_API.Contracts;
 using HoteListing_API.Models;
 using HoteListing_API.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -25,6 +26,10 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 builder.Services.AddScoped<IHotelsRepository, HotelsRepository>();
+builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddIdentityCore<ApiUser>().AddRoles<IdentityRole>()
+    
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var app = builder.Build();
 

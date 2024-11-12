@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HoteListing_API.DTOs.Country;
 using HoteListing_API.DTOs.Hotel;
+using HoteListing_API.DTOs.Users;
 using HoteListing_API.Models;
 
 namespace HoteListing_API.Configuration;
@@ -16,5 +17,7 @@ public class MapperConfig : Profile
         
         CreateMap<Hotel, HotelDto>().ReverseMap();
         CreateMap<Hotel, CreateHotelDto>().ReverseMap();
+
+        CreateMap<ApiUserDto, ApiUser>().ReverseMap();
     }
 }
