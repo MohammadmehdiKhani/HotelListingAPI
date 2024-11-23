@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoteListing_API.Models;
 using HoteListing_API.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HoteListing_API.Controllers
 {
@@ -55,6 +56,7 @@ namespace HoteListing_API.Controllers
         // PUT: api/countries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutCountry(int id, UpdateCountryDto updateCountryDto)
         {
             if (id != updateCountryDto.Id)
@@ -92,6 +94,7 @@ namespace HoteListing_API.Controllers
         // POST: api/countries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Country>> PostCountry(CreateCountryDto createCountryDto)
         {
             var country = _mapper.Map<Country>(createCountryDto);
@@ -101,6 +104,7 @@ namespace HoteListing_API.Controllers
 
         // DELETE: api/countries/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
             var country = await _repository.GetAsync(id);

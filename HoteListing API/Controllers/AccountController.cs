@@ -37,4 +37,23 @@ public class AccountController : ControllerBase
 
         return Ok();
     }
+    
+    
+    // POST: api/Account/Login
+    [HttpPost]
+    [Route("login")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
+    {
+        var authResponse = await _authManager.login(loginDto);
+
+        if (authResponse == null)
+        {
+            return Unauthorized();
+        }
+        
+        return Ok(authResponse);
+    }
 }
