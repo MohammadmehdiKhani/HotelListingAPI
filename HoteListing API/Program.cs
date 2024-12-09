@@ -51,8 +51,9 @@ builder.Services.AddAuthentication(options =>
 
 });
 builder.Services.AddIdentityCore<ApiUser>().AddRoles<IdentityRole>()
-    
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddTokenProvider<DataProtectorTokenProvider<ApiUser>>("HotelListingApi")
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
