@@ -27,7 +27,7 @@ namespace HoteListing_API.Controllers
             _mapper = mapper;
             _repository = repository;
         }
-
+        
         // GET: api/countries
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetCountryDto>>> GetCountries()

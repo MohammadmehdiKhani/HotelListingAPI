@@ -4,11 +4,13 @@ using HoteListing_API.Configuration;
 using HoteListing_API.Contracts;
 using HoteListing_API.Models;
 using HoteListing_API.Repository;
+using Jil;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using Options = Microsoft.Extensions.Options.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +57,12 @@ builder.Services.AddIdentityCore<ApiUser>().AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddResponseCaching(options =>
+{
+    options.MaximumBodySize = 1024;
+    options.UseCaseSensitivePaths = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -69,6 +77,22 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
+
+app.UseResponseCaching();
+
+app.Use(async (context, next) =>
+{
+    context.Response.GetTypedHeaders().CacheControl =
+        new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+        {
+            Public = true,
+            MaxAge = TimeSpan.FromSeconds(10)
+        };
+    context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+        new string[] { "Accept-Encoding" };
+
+    await next();
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
