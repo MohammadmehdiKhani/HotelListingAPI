@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using HoteListing_API.Contracts;
+using HoteListing_API.DTOs;
 using HoteListing_API.DTOs.Country;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace HoteListing_API.Controllers
         }
         
         // GET: api/countries
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<GetCountryDto>>> GetCountries()
         {
             var counties = await _repository.GetAllAsync();
@@ -37,6 +38,14 @@ namespace HoteListing_API.Controllers
             return Ok(records);
         }
 
+        // GET: api/countries/?StartIndex=0&PageSize=25,PageNumber=1
+        [HttpGet]
+        public async Task<ActionResult<PagedResult<GetCountryDto>>> GetPagedCountries([FromQuery] QueryParameters queryParameters)
+        {
+            var pagedCountriesResult = await _repository.GetAllAsync<GetCountryDto>(queryParameters);
+            return Ok(pagedCountriesResult);
+        }
+        
         // GET: api/countries/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CountryDto>> GetCountry(int id)
